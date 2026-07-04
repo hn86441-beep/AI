@@ -1,9 +1,15 @@
+import streamlit as st
+
+# إعدادات الصفحة (اختياري)
+st.set_page_config(page_title="لعبة XO مشوقة", layout="centered")
+
+# كود الواجهة واللعبة بالكامل كمتغير نصي
+html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة XO مشوقة</title>
     <style>
         * {
             box-sizing: border-box;
@@ -19,12 +25,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            min-height: 90vh;
         }
 
         h1 {
             margin-bottom: 20px;
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
@@ -40,8 +46,8 @@
 
         .board {
             display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
+            grid-template-columns: repeat(3, 90px);
+            grid-template-rows: repeat(3, 90px);
             gap: 10px;
             background-color: rgba(255, 255, 255, 0.05);
             padding: 10px;
@@ -59,7 +65,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.1s directly, background-color 0.2s;
+            transition: transform 0.1s, background-color 0.2s;
         }
 
         .cell:hover {
@@ -129,9 +135,9 @@
         let isGameActive = true;
 
         const winningConditions = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8], // الصفوف
-            [0, 3, 6], [1, 4, 7], [2, 5, 8], // الأعمدة
-            [0, 4, 8], [2, 4, 6]             // الأقطار
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
         ];
 
         function handleCellClick(e) {
@@ -181,7 +187,6 @@
                 return;
             }
 
-            // تبديل الأدوار
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             statusText.textContent = `دور اللاعب: ${currentPlayer}`;
         }
@@ -203,3 +208,7 @@
     </script>
 </body>
 </html>
+"""
+
+# تمرير الكود ليعرض مباشرة داخل واجهة Streamlit
+st.components.v1.html(html_code, height=550, scrolling=False)
